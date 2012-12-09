@@ -1,0 +1,27 @@
+{
+  "name": "tdantas",
+  "version": "0.0.1",
+  "description": "\"Solution Stack Operations in Constant Time\"",
+  "main": "stack.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "repository": "",
+  "keywords": [
+    "questions",
+    "it",
+    "interview",
+    ""
+  ],
+
+   "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+   },
+
+  "author": "Thiago Teixeira Dantas",
+  "license": "MIT"
+}
