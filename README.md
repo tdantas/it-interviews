@@ -1,8 +1,18 @@
 
-This repository contains some IT Interviews that I heard, did and imagined.
+#### How to send my solution ? 
+>>>>>>> Add solution instructions
 
-#### Solutions
-	The solutions are in a new branch called solutions.
+````
+ Choose the question
+ Create a directory with your github name
+ Create the solution
+ Create the tests
+ Pull Request	
+ 	
+````
 
-#### Which programming language should I use ?
-	Your best language  :)
+For instance:
+
+Look the [matrix_prime_numbers question][github_matrix_solution]
+
+[github_matrix_solution]: https://github.com/tdantas/it-interviews/tree/solutions/matrix_prime_numbers
