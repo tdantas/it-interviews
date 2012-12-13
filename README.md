@@ -1,5 +1,5 @@
 
-This repository contains some IT Interviews that I heard, did and imagine.
+This repository contains some IT Interviews that I heard, did and imagined.
 
 #### Solutions
 	The solutions are in a new branch called solutions.
