@@ -1,9 +1,11 @@
-== Background
+### Background
 
 A WordSource is a source of words and it keeps analytical information of each word that it has seen.
 
-== Example
 
+### Example
+
+````
    For the following string: "lorem ipsum ipsum"
 
    src = LoremIpsumWordSource.new
@@ -19,8 +21,8 @@ A WordSource is a source of words and it keeps analytical information of each wo
      # => ["m","p","s","l","r"]
    src.count
      # => 3 # total words seen
-
-== Assignment
+````
+### Assignment
 
 1. Implement LoremIpsumWordSource
 2. Get top 5 consonants from the words seen
