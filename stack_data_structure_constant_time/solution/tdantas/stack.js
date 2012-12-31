@@ -1,13 +1,13 @@
 module.exports = MinStack
 
 function MinStack() {
-	this._stack = []
-	this._minStack = []	
+  this._stack = []
+  this._minStack = []	
 }
 
 MinStack.prototype.push = function(newItem) {
   var minItem = newItem
-  if( this.getMin() < newItem  )	minItem = this.getMin()
+  if(this.getMin() < newItem) minItem = this.getMin()
 
   this._minStack.push(minItem) 
   this._stack.push(newItem)
@@ -15,7 +15,7 @@ MinStack.prototype.push = function(newItem) {
 
 MinStack.prototype.pop = function() {
   this._minStack.pop()
-	return this._stack.pop()
+  return this._stack.pop()
 }
 
 MinStack.prototype.getMin = function() {
