@@ -64,18 +64,4 @@ describe('Stack', function(){
   
   });
 
-  it('should return the new min value when the first one get out of the stack', function() {
-    var stack = new Stack()
-    stack.push(10)
-    stack.push(2) // Second min value
-    stack.push(9)  
-    stack.push(8)
-    stack.push(1) // First min
-    stack.pop()
-
-    should.strictEqual(2,stack.getMin())
-  
-  });
-
-
 });
