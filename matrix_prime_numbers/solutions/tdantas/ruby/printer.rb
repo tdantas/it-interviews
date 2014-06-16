@@ -7,9 +7,9 @@ class Printer
   end
 
   def self.align(str, alignment)
-  	ssize = str.size
-  	return str.to_s if ssize >= alignment
-  	[str, Array.new(alignment - ssize).join(" ")].join("")
+    ssize = str.size
+    return str.to_s if ssize >= alignment
+    [str, Array.new(alignment - ssize).join(" ")].join("")
   end
 
 end
