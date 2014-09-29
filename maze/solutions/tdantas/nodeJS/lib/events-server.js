@@ -12,10 +12,11 @@ function EventServer(port) {
   var ee      = new EE();
   var parser  = CRLFParser();
 
-  ee.start    = start;
-  ee.stop     = stop;
-
-  return ee;
+  return {
+    start: start,
+    stop: stop,
+    on: ee.on.bind(ee)
+  };
 
   function start(callback) {
     if(server) return callback('Already Initialized');
