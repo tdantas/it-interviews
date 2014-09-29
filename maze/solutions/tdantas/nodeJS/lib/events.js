@@ -1,6 +1,15 @@
 var usersRepository = require('./users/repository');
 
 module.exports = Event
+
+var Processors = {
+  'P': PVTEventProcessor,
+  'F': FollowEventProcessor,
+  'U': UnfollowEventProcessor,
+  'B': BroadcastEventProcessor,
+  'S': StatusEventProcessor
+};
+
 function Event(payload) {
   var pieces           = payload.split("|");
 
@@ -10,56 +19,51 @@ function Event(payload) {
   var _to               = pieces[3];
 
   return {
-    process: process,
-    sequence: _sequence
+    from: _from,
+    to: _to,
+    type: _type,
+    sequence: _sequence,
+    payload: payload,
+    process: process
   };
 
   function process(callback) {
-
-    var Processors = {
-      'P': PVTEventProcessor,
-      'F': FollowEventProcessor,
-      'U': UnfollowEventProcessor,
-      'B': BroadcastEventProcessor,
-      'S': StatusEventProcessor
-    };
-
-    Processors[_type](callback);
+    Processors[_type](this, callback);
   }
+}
 
-  function PVTEventProcessor(cb) {
-    var toUser = usersRepository.fetch(_to)
-    toUser.send(payload)
-  }
+function PVTEventProcessor(event, cb) {
+  var toUser = usersRepository.fetch(event.to)
+  toUser.send(event.payload)
+}
 
-  function FollowEventProcessor(cb) {
-    var from = usersRepository.fetch(_from);
-    var to   = usersRepository.fetch(_to);
+function FollowEventProcessor(event, cb) {
+  var from = usersRepository.fetch(event.from);
+  var to   = usersRepository.fetch(event.to);
 
-    to.follow(from);
-    to.send(payload, cb);
-  }
+  to.follow(from);
+  to.send(event.payload, cb);
+}
 
-  function UnfollowEventProcessor(cb) {
-    var fromUser = usersRepository.fetch(_from);
-    var toUser = usersRepository.fetch(_to);
-    toUser.unfollow(fromUser, cb);
-  }
+function UnfollowEventProcessor(event, cb) {
+  var fromUser = usersRepository.fetch(event.from);
+  var toUser = usersRepository.fetch(event.to);
+  toUser.unfollow(fromUser, cb);
+}
 
-  function BroadcastEventProcessor(cb) {
-    var allUsers  = usersRepository.all();
+function BroadcastEventProcessor(event, cb) {
+  var allUsers  = usersRepository.all();
 
-    allUsers.forEach(function(client) {
-      client.send(payload, cb);
-    });
-  }
+  allUsers.forEach(function(client) {
+    client.send(event.payload, cb);
+  });
+}
 
-  function StatusEventProcessor(cb) {
-    var fromUser  = usersRepository.fetch(_from);
+function StatusEventProcessor(event, cb) {
+  var fromUser  = usersRepository.fetch(event.from);
 
-    fromUser.followers().forEach(function(client) {
-      client.send(payload, cb);
-    });
-  }
+  fromUser.followers().forEach(function(client) {
+    client.send(event.payload, cb);
+  });
 }
 

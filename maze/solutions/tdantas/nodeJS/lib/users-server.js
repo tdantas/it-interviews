@@ -16,8 +16,8 @@ function UserServer(port) {
   };
 
   function start(callback) {
-    server = net.createServer(onConnection)
-      .listen(port, function(err) {
+    server = net.createServer(onConnection);
+    server.listen(port, function(err) {
       callback(err, port);
     });
   }

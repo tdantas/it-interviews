@@ -19,27 +19,22 @@ function EventServer(port) {
   };
 
   function start(callback) {
-    if(server) return callback('Already Initialized');
+    server = net.createServer(onConnection);
 
-    server = net.createServer(onConnection).listen(port, listenCb);
-
-    function listenCb(err) {
-      if(err) {
-        server = null;
-        return callback(err);
-      }
+    server.listen(port, function(err) {
 
       parser.on('token', function(rawEvent) {
         var event = Events(rawEvent);
         ee.emit('event', event);
       });
 
-      return callback(null, port);
-    }
+      callback(err, port);
+    });
+
   }
 
   function stop(callback) {
-    if(!server) return callback();
+    callback = callback || function(){ }
     server.close(callback);
   }
 

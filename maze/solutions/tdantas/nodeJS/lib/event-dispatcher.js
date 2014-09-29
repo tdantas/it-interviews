@@ -7,13 +7,13 @@ function EventDispatcher() {
   return { process: process };
 
   function process(event) {
-    var currEvent;
+    var event;
     backlog[event.sequence] = event;
 
-    while(currEvent = backlog[next]) {
+    while(event = backlog[next]) {
       delete backlog[next];
       next++;
-      currEvent.process();
+      event.process();
     }
   }
 }
