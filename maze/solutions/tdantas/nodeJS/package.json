@@ -1,0 +1,12 @@
+{
+  "name": "solution",
+  "version": "0.0.1",
+  "description": "SoundCloud Interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/**",
+    "start": "node index.js"
+  },
+  "author": "Thiago T. Dantas",
+  "license": "BSD-2-Clause"
+}
