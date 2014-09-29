@@ -20,9 +20,9 @@ eventsServer.on('event', function(event) {
 
 UserRepository.on('empty', function() {
 
-  console.log("-----------------------------")
+  console.log("-----------------------------------------------")
   console.log(" All users disconnected, closing the server");
-  console.log("-----------------------------")
+  console.log("-----------------------------------------------")
   process.exit(0)
 
 });
