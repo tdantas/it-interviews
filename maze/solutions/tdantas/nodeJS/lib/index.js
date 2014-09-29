@@ -1,7 +1,7 @@
 var EventsServer    = require('./events-server');
 var UsersServer     = require('./users-server');
 var UserRepository  = require('./users/repository');
-var EventHandler    = require('./event-handler');
+var EventDispatcher = require('./event-dispatcher');
 
 var eventsServer  = EventsServer(9090);
 var userServer    = UsersServer(9099);
@@ -15,7 +15,7 @@ userServer.on("disconnect", function(userid) {
 });
 
 eventsServer.on('event', function(event) {
-  EventHandler.process(event);
+  EventDispatcher.process(event);
 });
 
 UserRepository.on('empty', function() {
