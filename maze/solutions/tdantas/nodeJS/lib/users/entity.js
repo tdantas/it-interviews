@@ -1,32 +1,33 @@
 
-
 module.exports = User;
 
 function User(id, socket) {
   var _socket     = socket;
-  var _id         = id;
+  var _id         = parseInt(id.replace(/\r?\n/, ""));
   var _follow     = { };
   var _followers  = { };
 
-  return {
+  var instance = {
     id: _id,
     following: following,
     followers: followers,
     follow: follow,
     removeFollower: removeFollower,
-    setFollowers: setFollowers,
+    setFollower: setFollower,
     unfollow: unfollow,
     send: send,
     toString: toString
   };
 
+  return instance;
+
   function following() {
     return Object
-      .keys(follow)
+      .keys(_follow)
       .map(mapper);
 
     function mapper(indice) {
-      return follow[indice];
+      return _follow[indice];
     }
   }
 
@@ -41,21 +42,21 @@ function User(id, socket) {
   }
 
   function follow(user) {
-    follow[user.id] = user;
-    setFollowers(this);
+    _follow[user.id] = user;
+    user.setFollower(instance);
   }
 
-  function setFollowers(followerUser) {
-    followers[followerUser.id] = followerUser;
+  function setFollower(user) {
+    _followers[user.id] = user;
   }
 
   function unfollow(user) {
-    delete follow[user.id];
-    removeFollower(_id);
+    delete _follow[user.id];
+    user.removeFollower(instance);
   }
 
-  function removeFollower(id) {
-    delete _followers[id];
+  function removeFollower(user) {
+    delete _followers[user.id];
   }
 
   function send(payload) {
@@ -70,5 +71,37 @@ function User(id, socket) {
 User.NULL = new User('N/A', { write: noop });
 function noop(payload, cb) {
   if(typeof cb === 'function') cb();
+}
+
+
+if(require.main == module) {
+  thiago = new User('thiago', 'socket');
+  lucas  =new User('lucas',   'socket');
+  flavia = new User('flavia', 'scoket');
+  
+  thiago.follow(lucas)
+  lucas.follow(flavia)
+ 
+
+  function ids(collection) {
+   return collection.map(function(item) { return item.id });
+  }
+
+  
+  function report() {
+    console.log('Thiago: Following ->', ids(thiago.following()), '| Followers -> ', ids(thiago.followers()))
+    console.log('Lucas: Following ->', ids(lucas.following()), '| Followers -> ', ids(lucas.followers()))
+    console.log('Flavia: Following ->', ids(flavia.following()), '| Followers -> ', ids(flavia.followers()))
+  }
+
+  report();
+  console.log('---------- Thiago UNFOLLOW Lucas -----------');
+  thiago.unfollow(lucas);
+  report();
+
+  console.log('---------- Lucas UNFOLLOW Flavia -----------');
+
+  lucas.unfollow(flavia);
+  report();
 }
 
