@@ -1,6 +1,8 @@
+var debug = require('debug')('events.processor');
+
 var usersRepository = require('./users/repository');
 
-module.exports = Event
+module.exports = Event;
 
 var Processors = {
   'P': PVTEventProcessor,
@@ -24,34 +26,52 @@ function Event(payload) {
     type: _type,
     sequence: _sequence,
     payload: payload,
-    process: process
+    process: process,
+    toString: toString
   };
 
   function process(callback) {
     Processors[_type](this, callback);
   }
+  
+  function toString() {
+   return [ 
+      'Sequence: ' + _sequence,
+      'type: ' + _type,
+      'From:' + _from,
+      'To: ' + _to
+    ].join(" ");
+  }
 }
 
 function PVTEventProcessor(event, cb) {
-  var toUser = usersRepository.fetch(event.to)
-  toUser.send(event.payload)
+  debug('PVTEventProcessor ' + event);
+  
+  var toUser = usersRepository.fetch(event.to); 
+  toUser.send(event.payload);
 }
 
 function FollowEventProcessor(event, cb) {
+  debug('FollowEventProcessor ' + event);
+
   var from = usersRepository.fetch(event.from);
   var to   = usersRepository.fetch(event.to);
 
-  to.follow(from);
+  from.follow(to, cb);
   to.send(event.payload, cb);
 }
 
 function UnfollowEventProcessor(event, cb) {
-  var fromUser = usersRepository.fetch(event.from);
-  var toUser = usersRepository.fetch(event.to);
-  toUser.unfollow(fromUser, cb);
+  debug('UnfollowEventProcessor ' + event);
+
+  var from = usersRepository.fetch(event.from);
+  var to = usersRepository.fetch(event.to);
+  
+  from.unfollow(to, cb);
 }
 
 function BroadcastEventProcessor(event, cb) {
+  debug('BroadcastEventProcessor ' + event);
   var allUsers  = usersRepository.all();
 
   allUsers.forEach(function(client) {
@@ -60,6 +80,8 @@ function BroadcastEventProcessor(event, cb) {
 }
 
 function StatusEventProcessor(event, cb) {
+  debug('StatusEventProcessor ' + event);
+
   var fromUser  = usersRepository.fetch(event.from);
 
   fromUser.followers().forEach(function(client) {

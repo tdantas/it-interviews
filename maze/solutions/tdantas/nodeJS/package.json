@@ -8,5 +8,8 @@
     "start": "node index.js"
   },
   "author": "Thiago T. Dantas",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "debug": "^2.0.0"
+  }
 }

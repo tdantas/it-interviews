@@ -11,8 +11,6 @@ function EventServer(port) {
   var ee      = new EE();
   var parser  = CRLFParser();
 
-  var naturalOrder = 1;
-
   return {
     start: start,
     stop: stop,
@@ -25,7 +23,7 @@ function EventServer(port) {
     server.listen(port, function(err) {
 
       parser.on('token', function(rawEvent) {
-        var event = Events((naturalOrder++), rawEvent);
+        var event = Events(rawEvent);
         ee.emit('event', event);
       });
 
