@@ -8,9 +8,10 @@ module.exports = EventServer;
 
 function EventServer(port) {
   var server;
-  var port    = port;
   var ee      = new EE();
   var parser  = CRLFParser();
+
+  var naturalOrder = 1;
 
   return {
     start: start,
@@ -24,7 +25,7 @@ function EventServer(port) {
     server.listen(port, function(err) {
 
       parser.on('token', function(rawEvent) {
-        var event = Events(rawEvent);
+        var event = Events((naturalOrder++), rawEvent);
         ee.emit('event', event);
       });
 
@@ -34,7 +35,7 @@ function EventServer(port) {
   }
 
   function stop(callback) {
-    callback = callback || function(){ }
+    callback = callback || function(){ };
     server.close(callback);
   }
 
