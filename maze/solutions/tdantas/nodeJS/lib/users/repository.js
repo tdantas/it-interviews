@@ -16,11 +16,13 @@ UserRepository.reset      = reset;
 
 function create(id, socket) {
   var user = new User(id, socket);
-  storage[id] = user;
+  storage[user.id] = user;
 }
 
 function fetch(id) {
-  return storage[id] || User.NULL
+  id = parseInt(id);
+  var user = storage[id] || User.NULL;
+  return user;
 }
 
 function all(){

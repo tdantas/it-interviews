@@ -3,8 +3,7 @@ module.exports = User;
 
 function User(id, socket) {
   var _socket     = socket;
-  var _id         = id;
-  var _follow     = { };
+  var _id         = parseInt(id);
   var _followers  = { };
 
   var me = {
@@ -14,7 +13,8 @@ function User(id, socket) {
     removeFollower: removeFollower,
     setFollower: setFollower,
     unfollow: unfollow,
-    send: send
+    send: send,
+    toString: toString
   };
 
   return me;
@@ -43,6 +43,10 @@ function User(id, socket) {
 
   function send(payload) {
     _socket.write(payload);
+  }
+
+  function toString() {
+    return [ _id ].join(" ")
   }
 
 }

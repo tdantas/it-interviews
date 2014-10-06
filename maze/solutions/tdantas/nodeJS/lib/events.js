@@ -57,7 +57,7 @@ function FollowEventProcessor(event, cb) {
   var from = usersRepository.fetch(event.from);
   var to   = usersRepository.fetch(event.to);
 
-  from.follow(to, cb);
+  from.follow(to);
   to.send(event.payload, cb);
 }
 
@@ -67,7 +67,7 @@ function UnfollowEventProcessor(event, cb) {
   var from = usersRepository.fetch(event.from);
   var to = usersRepository.fetch(event.to);
   
-  from.unfollow(to, cb);
+  from.unfollow(to);
 }
 
 function BroadcastEventProcessor(event, cb) {
