@@ -44,7 +44,7 @@ sent by the *event source* and what they represent:
 |43&#124;P&#124;32&#124;56  | 43     | Private Msg  | 32           | 56         |
 |634&#124;S&#124;32         | 634    | Status Update| 32           | -          |
 
-Using the [verification program](#verification-program), you will receive exactly X events,
+Using the [verification program](), you will receive exactly X events,
 with sequence number from 1 to X. **The events will arrive out of order**.
 
 Events may generate notifications for *user clients*. **If there is a
@@ -62,13 +62,13 @@ for them must be silently ignored. *user clients* expect to be notified of
 events **in the correct order**, regardless of the order in which the
 *event source* sent them.
 
-### <a name='verification-program'> Verification Program </a>
+### Verification Program
 
 To run the clients, first make sure you have the server you wrote
 running and listening to ports 9090 and 9099, then run:
 
 ```
-$ ./bin/challenge.sh
+$ ./challenge.sh
 ```
 
 This will start the clients, which will immediately start sending
@@ -80,3 +80,14 @@ outputs:
  [INFO] \o/ ALL NOTIFICATIONS RECEIVED \o/
  [INFO] ==================================
 ```
+
+### Attention
+
+We expect you to write code you would consider **production-ready**.  
+
+This means we want your code to be *well-factored*, *without needless duplication*, *follow good practices* and be *automatically verified*.  
+What we will look at: 
+- If your code fulfils the requirement, and runs against the verification Program 
+- How clean is your design and implementation, how easy it is to understand and maintain your code 
+- How you verified your software, if by automated tests or some other way.
+
