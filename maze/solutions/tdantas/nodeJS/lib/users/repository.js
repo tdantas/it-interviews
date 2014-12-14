@@ -38,10 +38,8 @@ function all(){
 function deleteFn(id) {
   var user = storage[id];
   delete storage[id];
+
   if(all().length === 0) ee.emit("empty");
   return user;
 }
 
-function reset() {
-  storage = { };
-}

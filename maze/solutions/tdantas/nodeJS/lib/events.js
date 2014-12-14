@@ -21,12 +21,12 @@ function Event(payload) {
   var _to               = pieces[3];
 
   return {
-    from: _from,
-    to: _to,
-    type: _type,
+    from:     _from,
+    to:       _to,
+    type:     _type,
     sequence: _sequence,
-    payload: payload,
-    process: process,
+    payload:  payload,
+    process:  process,
     toString: toString
   };
 
