@@ -7,7 +7,6 @@ defmodule Stack do
 
   def push(%Stack{ items: [stack], min: [first | rest] }, element) do
     newMin = Enum.min([first, element])
-    min =
     %Stack{items: [element | stack], min: [newMin|[first|rest]]}
   end
 
