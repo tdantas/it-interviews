@@ -12,7 +12,7 @@ There are various events that occur during the lifetime of a call. Upon received
 * The type of the Talkdesk number that received the call
 * If the call was forwarded to a User's external number, then the price of the call to the specified country needs to be considered
 
-The price we must charge must be (Twilio's price)[https://www.twilio.com/resources/rates/international-rates.csv] plus, for example, 5 cents (See Formula section). You can find a `.csv` file with the prices [here](http://d.pr/f/I9L4)
+The price we must charge must be Twilio's price plus, for example, 5 cents (See Formula section). You can find a `.csv` file with the prices [here](https://www.twilio.com/resources/rates/international-rates.csv)
 
 In some cases, we might like to change the margin depending on our Client (for example, reduce the margin if they use a lot of minutes per month).
 
@@ -75,5 +75,3 @@ Here's an example of the data the event has (they come in JSON):
 ## Environment
 
 We use MongoDB as our main database, so please do the same. (We have systems that use Mongoid (ORM) and others that use the MongoDB ruby driver directly, but use whichever you prefer).
-
-
