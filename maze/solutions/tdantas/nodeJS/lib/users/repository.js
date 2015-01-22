@@ -12,7 +12,6 @@ UserRepository.create     = create;
 UserRepository.fetch      = fetch;
 UserRepository.all        = all;
 UserRepository['delete']  = deleteFn;
-UserRepository.reset      = reset;
 
 function create(id, socket) {
   var user = new User(id, socket);
