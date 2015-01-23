@@ -18,7 +18,6 @@ defmodule ExFollowerMaze.ClientsServer do
         Agent.update(clients_list, &Map.put(&1, client_id, client))
         loop_acceptor(socket, clients_list)
       {status, _} ->
-        require IEx; IEx.pry
         IO.puts "no more clients"
         IO.inspect(status)
         loop_acceptor(socket, clients_list)
@@ -38,7 +37,7 @@ defmodule ExFollowerMaze.ClientsServer do
             followers = Map.get(followers_map, client_id) || []
             Enum.each followers, fn(follower) ->
               client = Agent.get(clients_agent, &Map.get(&1, follower))
-              :gen_tcp.send(client, output)
+              if client, do: :gen_tcp.send(client, output)
             end
             handle_events(clients_agent, followers_map)
           [_, "F", follower, client_id] ->
