@@ -5,16 +5,14 @@ class Telegram
   end
 
   def output_lines
-    available_lines = []
-    @lines_of_text.each do |line|
+    @lines_of_text.each_with_object([]) do |line, result|
       if line.length <= @chars_limit
-        available_lines << line
+        result << line
       else
-        allowed_lines = verify_words(count_lines(line))
-        available_lines << line.split[0..allowed_lines-1].join(" ")
+        allowed_words = verify_words(count_lines(line))
+        result << line.split[0..allowed_words-1].join(" ")
       end
     end
-    return available_lines
   end
 
   private 
